@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-//引入store 
-
-export default class Count extends Component {
+import  { connect} from 'react-redux'
+import {createIncrementAction,createDecrementAction} from  '../../redux/count_action'
+ class CountUI extends Component {
    componentDidMount(){
-
-       
+         console.log(this.props);     
    }
     increment = () => {
         const { value } = this.selectNumber
@@ -15,17 +14,12 @@ export default class Count extends Component {
         this.props.jian(value*1)
     }
     incrementIfOdd = () => {
-        const { value } = this.selectNumber
-     
-     
+        const { value } = this.selectNumber    
     }
     incrementAsync = () => {
-        const {value} = this.selectNumber
-       
+        const {value} = this.selectNumber 
     }
-    render() {
-        
-        
+    render() {        
         return (
             <div>
                 <h1>当前求和为:{this.props.count}</h1>
@@ -42,3 +36,14 @@ export default class Count extends Component {
         )
     }
 }
+function a(a){
+    return{count:a}
+}
+function b(dispatch){
+    return {
+        jia:(number)=>{dispatch(createIncrementAction(number))},
+        jian:(number)=>{dispatch(createDecrementAction(number))}    
+    }
+}
+
+ export default connect(a,b)(CountUI)
